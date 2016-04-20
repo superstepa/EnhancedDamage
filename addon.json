@@ -1,0 +1,12 @@
+{
+	"title"		:	"Enhanced Damage Addon",
+	"type"		:	"tool",
+	"tags"		:	[ "fun", "realism"],
+	"ignore"	:
+	[
+		"*.psd",
+		"*.vcproj",
+		"*.svn*",
+		"*.db"
+	]
+}
