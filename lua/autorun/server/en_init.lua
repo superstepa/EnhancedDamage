@@ -72,7 +72,7 @@ function EnhancedDamage.Damage(ply,hitgroup,dmginfo) --Gotta separate this into 
 end
 
 function EnhancedDamage.ThinkDamage()
-  for k, v in pairs(EnhancedDamage.EntTable) do
+  for _, v in pairs(EnhancedDamage.EntTable) do
     if IsValid(v) and (v:IsPlayer() or v:IsNPC()) then
         if v:WaterLevel() == 3 then
           if v:IsOnFire() then
@@ -193,7 +193,7 @@ function EnhancedDamage.DropWeapon(ply,chance,attacker)
         ply:SetNPCState(2)
         for _, v in pairs(EnhancedDamage.EntTable) do
             if (v:IsPlayer()) then
-                ply:AddEntityRelationship(v, 2, 99) -- Attempt to make it run away
+                ply:AddEntityRelationship(v, 2, 99) -- Attempt to make the npc run away from players
             end
         end
       end
@@ -238,7 +238,7 @@ function EnhancedDamage.CreateRagdoll (ply,attacker,dmginfo)
   oldbody = ply:GetNetworkedEntity("body")
   if IsValid(oldbody) then oldbody:Remove() end
 
-  if  !IsValid(ply) then return end
+  if !IsValid(ply) then return end
   local rag = ents.Create("prop_ragdoll")
 
   rag.dmginfo = dmginfo
@@ -319,7 +319,7 @@ drownblacklist = {}
 
 CreateConVar("enhanceddamage_enabled", 1, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Enable enhanced damage")
 
-CreateConVar("enhanceddamage_headdamagescale", 3 , {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
+CreateConVar("enhanceddamage_headdamagescale", 5 , {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_armdamagescale", 0.50, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_legdamagescale",0.50, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_chestdamagescale", 1.25, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
@@ -327,7 +327,7 @@ CreateConVar("enhanceddamage_stomachdamagescale",0.75, {FCVAR_SERVER_CAN_EXECUTE
 CreateConVar("enhanceddamage_nutsdamagescale", 2, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_handdamagescale", 0.25, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 
-CreateConVar("enhanceddamage_armdropchance",20, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"The weapon drop chance for ")
+CreateConVar("enhanceddamage_armdropchance",20, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"The weapon drop chance for arm")
 CreateConVar("enhanceddamage_handdropchance", 40, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 
 CreateConVar("enhanceddamage_enablesounds", 1, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Enable the sounds when hurt ")
@@ -338,7 +338,7 @@ CreateConVar("enhanceddamage_falldamage",1,{FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIF
 
 --CreateConVar("enhanceddamage_advanced_npcdamage",0,{FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE}, "Enable falldamge and drowning damage for NPC's (WARNING: VERY UNOPTIMZED)")
 CreateConVar("enhanceddamage_npcfalldamage",1,{FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Enable falldamage for NPC. Only works if advanced_npcdamage is on")
-CreateConVar("enhanceddamage_drowningdamage",1,{FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Toggle drowning. Only works if advanced_npcdamage is on")
+CreateConVar("enhanceddamage_drowningdamage",1,{FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Toggle drowning.")
 
 
 CreateConVar("enhanceddamage_ragdolls", 0 ,{FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Enable enhanced ragdolls.")

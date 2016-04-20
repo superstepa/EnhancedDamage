@@ -9,20 +9,16 @@ EnhancedDamage.HitGroups[HITGROUP_HEAD] = {
 
 EnhancedDamage.HitGroups[HITGROUP_LEFTARM] = {
   name="arm",
-  func=function(ply, dmginfo)
+  func= function(ply)
         EnhancedDamage.DropWeapon(ply,100 - GetConVar("enhanceddamage_armdropchance"):GetInt())
   end
 }
 
 EnhancedDamage.HitGroups[HITGROUP_RIGHTARM] = {
   name="arm",
-  func=function(ply, dmginfo)
-    if (dmginfo) then
-        EnhancedDamage.DropWeapon(ply,100 - GetConVar("enhanceddamage_armdropchance"):GetInt(),dmginfo:GetAttacker())
-    else
+  func= function(ply)
         EnhancedDamage.DropWeapon(ply,100 - GetConVar("enhanceddamage_armdropchance"):GetInt())
     end
-  end
 }
 
 EnhancedDamage.HitGroups[HITGROUP_CHEST] = {

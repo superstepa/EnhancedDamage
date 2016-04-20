@@ -7,6 +7,7 @@ if you get shot in your hand there is a large chance that you will drop your wea
 If you get shot in the leg you are slowed down
 
 ## Console commands
+'''
 enhanceddamage_enabled 1/0 for toggling it on an off
 enhanceddamage_BODYPARTdamagescale -Change the damage scale for the chosen bodypart (head, arm, leg, chest, stomach, nuts and hand)
 enhanceddamage_enablesounds - Enable/Disable hurt sounds
@@ -19,7 +20,7 @@ enhanceddamage_ragdolls - Enable/Disable ragdolls
 enhanceddamage_legbreak - Leg slowdown
 enhanceddamage_npcfalldamage - NPC Fall damage
 enhanceddamage_drowningdamage - Drowning damage
-
+'''
 ## TODO
 Rewrite the main init file into something less embarassing
 Add more comments
