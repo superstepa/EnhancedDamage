@@ -17,7 +17,7 @@ EnhancedDamage.HitGroups[HITGROUP_LEFTARM] = {
 EnhancedDamage.HitGroups[HITGROUP_RIGHTARM] = {
   name="arm",
   func= function(ply)
-        EnhancedDamage.DropWeapon(ply,100 - GetConVar("enhanceddamage_armdropchance"):GetInt())
+        EnhancedDamage.DropWeapon(ply,GetConVar("enhanceddamage_armdropchance"):GetInt())
     end
 }
 
@@ -57,6 +57,8 @@ EnhancedDamage.HitGroups[EnhancedDamage.HITGROUP_NUTS] = {
       local SoundsEnabled = GetConVar("enhanceddamage_enablesounds"):GetBool()
       if ((EnhancedDamage.GetVoiceType(ply) != "female") and SoundsEnabled) then
         local sound = Sound("vo/npc/male01/ow01.wav")
+        
+        --Very high pitch "OW"
         ply:EmitSound(sound,100,125)
       end
   end
@@ -64,6 +66,5 @@ EnhancedDamage.HitGroups[EnhancedDamage.HITGROUP_NUTS] = {
 
 EnhancedDamage.HitGroups[EnhancedDamage.HITGROUP_HAND] = {
   name="arm",
-  func = function(ply, dmginfo) EnhancedDamage.DropWeapon(ply,100 - GetConVar("enhanceddamage_handdropchance"):GetInt()) end
-
+  func = function(ply, dmginfo) EnhancedDamage.DropWeapon(ply,GetConVar("enhanceddamage_handdropchance"):GetInt()) end
 }

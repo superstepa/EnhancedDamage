@@ -14,7 +14,7 @@ HITGROUP_NUTS = 98
 HITGROUP_HAND = 99
 
 function debug_print(msg)
-  if (GetConVar("enhanceddamage_debug"):GetBool())  && (msg != nil) then
+  if (GetConVar("enhanceddamage_debug"):GetBool()) and (msg != nil) then
     print("DEBUG: " .. msg)
   end
 end
@@ -46,7 +46,7 @@ function EnhancedDamage.Damage(ply,hitgroup,dmginfo) --Gotta separate this into 
     local RHandPos = ply:GetBonePosition(RHandIndex)
     local RHandDistance = dmgpos:Distance(RHandPos)
 
-    if (NutsDistance <= 7 && NutsDistance >= 5) then
+    if (NutsDistance <= 7 and NutsDistance >= 5) then
       hitgroup = EnhancedDamage.HITGROUP_NUTS
     elseif (LHandDistance < 6 || RHandDistance < 6 ) then
       hitgroup = EnhancedDamage.HITGROUP_HAND
@@ -207,7 +207,7 @@ function EnhancedDamage.GetVoiceType(ply)
 
   if (ply:IsPlayer()) then
     local clientvar = string.lower(ply:GetInfo("enhanceddamage_cl_voice"))
-    if (clientvar !="" && clientvar != "default" && clientvar) then
+    if (clientvar !="" and clientvar != "default" && clientvar) then
       --Return the client variable only if it's not default
       return clientvar
     end
@@ -261,7 +261,7 @@ function EnhancedDamage.CreateRagdoll (ply,attacker,dmginfo)
 
   ply:AddDeaths( 1 ) --Changing the scores since we overrode that
 
-  if ( attacker:IsValid() && attacker:IsPlayer() ) then
+  if ( attacker:IsValid() and attacker:IsPlayer() ) then
     if ( attacker == ply ) then
       attacker:AddFrags( -1 )
     else
@@ -319,7 +319,7 @@ drownblacklist = {}
 
 CreateConVar("enhanceddamage_enabled", 1, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Enable enhanced damage")
 
-CreateConVar("enhanceddamage_headdamagescale", 5 , {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
+CreateConVar("enhanceddamage_headdamagescale", 3 , {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_armdamagescale", 0.50, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_legdamagescale",0.50, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
 CreateConVar("enhanceddamage_chestdamagescale", 1.25, {FCVAR_SERVER_CAN_EXECUTE,FCVAR_NOTIFY,FCVAR_ARCHIVE},"Change the scale for this bodypart")
