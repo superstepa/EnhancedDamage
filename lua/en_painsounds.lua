@@ -1,6 +1,6 @@
-
 EnhancedDamage.PainSounds = {}
-EnhancedDamage.PainSounds['headshotsounds'] = {Sound("physics/flesh/flesh_squishy_impact_hard1.wav"),
+EnhancedDamage.PainSounds['headshotsounds'] = {
+  Sound("physics/flesh/flesh_squishy_impact_hard1.wav"),
   Sound("physics/flesh/flesh_squishy_impact_hard2.wav"),
   Sound("physics/flesh/flesh_squishy_impact_hard3.wav"),
   Sound("physics/flesh/flesh_squishy_impact_hard4.wav")}
@@ -35,9 +35,13 @@ EnhancedDamage.PainSounds['male'] = {
     Sound("player/pl_burnpain1.wav"),
     Sound("player/pl_burnpain2.wav"),
     Sound("player/pl_burnpain3.wav")},
-  ['arm'] = {Sound("vo/npc/male01/myarm01.wav"),Sound("vo/npc/male01/myarm02.wav")},
-  ['leg'] = {Sound("vo/npc/male01/myleg01.wav"),Sound("vo/npc/male01/myleg02.wav")},
-  ['gut'] = {Sound("vo/npc/male01/mygut02.wav"),Sound("vo/npc/male01/hitingut01.wav"),Sound("vo/npc/male01/hitingut02.wav")}
+  ['arm'] = {Sound("vo/npc/male01/myarm01.wav"),
+             Sound("vo/npc/male01/myarm02.wav")},
+  ['leg'] = {Sound("vo/npc/male01/myleg01.wav"),
+             Sound("vo/npc/male01/myleg02.wav")},
+  ['gut'] = {Sound("vo/npc/male01/mygut02.wav"),
+             Sound("vo/npc/male01/hitingut01.wav"),
+             Sound("vo/npc/male01/hitingut02.wav")}
   }
 EnhancedDamage.PainSounds['female'] = {
   ['generic'] =
@@ -55,9 +59,13 @@ EnhancedDamage.PainSounds['female'] = {
     Sound("vo/npc/female01/moan03.wav"),
     Sound("vo/npc/female01/moan04.wav"),
     Sound("vo/npc/female01/moan05.wav")},
-  ['arm'] = {Sound("vo/npc/female01/myarm01.wav"),Sound("vo/npc/female01/myarm02.wav")},
-  ['leg'] = {Sound("vo/npc/female01/myleg01.wav"),Sound("vo/npc/female01/myleg02.wav")},
-  ['gut'] = {Sound("vo/npc/female01/mygut02.wav"),Sound("vo/npc/female01/hitingut01.wav"),Sound("vo/npc/female01/hitingut02.wav")}
+  ['arm'] = {Sound("vo/npc/female01/myarm01.wav"),
+             Sound("vo/npc/female01/myarm02.wav")},
+  ['leg'] = {Sound("vo/npc/female01/myleg01.wav"),
+             Sound("vo/npc/female01/myleg02.wav")},
+  ['gut'] = {Sound("vo/npc/female01/mygut02.wav"),
+             Sound("vo/npc/female01/hitingut01.wav"),
+             Sound("vo/npc/female01/hitingut02.wav")}
 }
 
 

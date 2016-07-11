@@ -1,7 +1,6 @@
 print("Superstepa's enhanced damage addon initialized")
 --[[
   Code is a mess, gotta fix
-  Todo:Stop having the same piece of code multiple times, thats a bad practice
 ]]--
 AddCSLuaFile()
 EnhancedDamage = {}
@@ -13,28 +12,28 @@ include "en_models.lua"
 HITGROUP_NUTS = 98
 HITGROUP_HAND = 99
 
-function debug_print(msg)
-  if (GetConVar("enhanceddamage_debug"):GetBool()) and (msg != nil) then
+function EnhancedDamage.debug_print(msg)
+  if (GetConVar("enhanceddamage_debug"):GetBool()) and (msg ~= nil) then
     print("DEBUG: " .. msg)
   end
 end
 
 function EnhancedDamage.Initialize()
-  debug_print("Initialize hook")
+  EnhancedDamage.debug_print("Initialize hook")
   EnhancedDamage.EntTable = {}
   timer.Create("UpdateEntTable", 5, 0, function()
       EnhancedDamage.EntTable = ents.GetAll()
     end)
 end
 
-function EnhancedDamage.Damage(ply,hitgroup,dmginfo) --Gotta separate this into more functions
+function EnhancedDamage.Damage(ply,hitgroup,dmginfo)
   if (GetConVar("enhanceddamage_enabled"):GetBool()) then
-    if (ConVarExists("sandboxteams_npcdamage") and ply:Team() != 1 ) then return end --Pseudo support for my sandbox teams addon
-    if !dmginfo then debug_print(hitgroup) return end
+    if (ConVarExists("sandboxteams_npcdamage") and ply:Team() ~= 1 ) then return end --Pseudo support for my sandbox teams addon
+    if not dmginfo then EnhancedDamage.debug_print(hitgroup) return end
     local dmgpos = dmginfo:GetDamagePosition()
 
     local PelvisIndx = ply:LookupBone("ValveBiped.Bip01_Pelvis")
-    if (PelvisIndx == nil) then return dmginfo end --Maybe Hitgroup still works, need testing
+    if (PelvisIndx == nil) then return dmginfo end
     local PelvisPos = ply:GetBonePosition(PelvisIndx)
     local NutsDistance = dmgpos:Distance(PelvisPos)
 
@@ -51,16 +50,18 @@ function EnhancedDamage.Damage(ply,hitgroup,dmginfo) --Gotta separate this into 
     elseif (LHandDistance < 6 || RHandDistance < 6 ) then
       hitgroup = EnhancedDamage.HITGROUP_HAND
     end
+
+    --The hitgroups are loaded from a en_hitgroups
     for k, v in pairs(EnhancedDamage.HitGroups) do
       if (hitgroup == k) then
         name = v["name"]
         command = "enhanceddamage_"..name.."damagescale"
-        debug_print(command)
-        if (command != "enhanceddamage_genericdamagescale") then
+        EnhancedDamage.debug_print(command)
+        if (command ~= "enhanceddamage_genericdamagescale") then
             dmginfo:ScaleDamage(GetConVar(command):GetFloat())
         end
         EnhancedDamage.HurtSound(ply, v["name"])
-        if (v["func"] != nil) then
+        if (v["func"] ~= nil) then
             v["func"](ply)
         end
         return k
@@ -131,15 +132,16 @@ end
 end
 
 function EnhancedDamage.BreakLeg(ply, duration)
-  debug_print("Breaking leg for ")
-  if !GetConVar("enhanceddamage_legbreak"):GetBool() then return end
-  if (!duration) then duration = 5 end
-  if !RUNSPEED and !WALKSPEED then
+
+  EnhancedDamage.debug_print("Breaking leg for ")
+  if not GetConVar("enhanceddamage_legbreak"):GetBool() then return end
+  if (not duration) then duration = 5 end
+  if not RUNSPEED and not WALKSPEED then
     RUNSPEED = ply:GetRunSpeed()
     WALKSPEED = ply:GetWalkSpeed()
   end
 
-  if !ply.legshot then
+  if not ply.legshot then
     EnhancedDamage.HurtSound(ply, "leg")
     ply.legshot = true
     ply:SetRunSpeed(RUNSPEED/2)
@@ -155,10 +157,10 @@ function EnhancedDamage.HurtSound(ply,zone,level)
 
   local location = nil
   local level = level or 75
-  if !ply.hurttimer and SoundsEnabled then
+  if not ply.hurttimer and SoundsEnabled then
       location = EnhancedDamage.PainSounds[EnhancedDamage.GetVoiceType(ply)][zone]
 
-      if !(location) then
+      if not (location) then
         location = EnhancedDamage.PainSounds[EnhancedDamage.GetVoiceType(ply)]["generic"]
       end
       if zone == "head" then
@@ -203,11 +205,11 @@ function EnhancedDamage.DropWeapon(ply,chance,attacker)
 end
 
 function EnhancedDamage.GetVoiceType(ply)
-  debug_print("Model: " .. string.lower( ply:GetModel() ) )
+  EnhancedDamage.debug_print("Model: " .. string.lower( ply:GetModel() ) )
 
   if (ply:IsPlayer()) then
     local clientvar = string.lower(ply:GetInfo("enhanceddamage_cl_voice"))
-    if (clientvar !="" and clientvar != "default" && clientvar) then
+    if (clientvar ~="" and clientvar ~= "default" && clientvar) then
       --Return the client variable only if it's not default
       return clientvar
     end
@@ -220,7 +222,7 @@ function EnhancedDamage.GetVoiceType(ply)
     end
   end
   --If everything else fails, male is our default voice type
-  debug_print("Going back to the default male voice")
+  EnhancedDamage.debug_print("Going back to the default male voice")
   return "male"
 end
 
@@ -233,16 +235,16 @@ function EnhancedDamage.Get_Bodygroup(ply)
 end
 
 function EnhancedDamage.CreateRagdoll (ply,attacker,dmginfo)
-  if !(GetConVar("enhanceddamage_ragdolls"):GetBool()) then return end
+  if not (GetConVar("enhanceddamage_ragdolls"):GetBool()) then return end
 
   oldbody = ply:GetNetworkedEntity("body")
   if IsValid(oldbody) then oldbody:Remove() end
 
-  if !IsValid(ply) then return end
+  if not IsValid(ply) then return end
   local rag = ents.Create("prop_ragdoll")
 
   rag.dmginfo = dmginfo
-  if !IsValid(rag) then return nil end
+  if not IsValid(rag) then return nil end
   rag:SetPos(ply:GetPos())
   rag:SetModel(ply:GetModel())
   rag:SetAngles(ply:GetAngles())
@@ -298,7 +300,7 @@ end
   end
 
     local autoremove = GetConVar("enhanceddamage_autoremoveragdolls"):GetInt()
-    if autoremove != 0 then
+    if autoremove ~= 0 then
       timer.Simple(autoremove, function()
         if (IsValid(rag)) then rag:Remove() end
         end)
