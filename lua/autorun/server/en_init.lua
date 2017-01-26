@@ -8,7 +8,7 @@ EnhancedDamage.EntTable = {}
 
 include "en_hitgroups.lua"
 include "en_painsounds.lua"
-include "en_models.lua"A
+include "en_models.lua"
 include "en_functions.lua"
 
 HITGROUP_NUTS = 98
